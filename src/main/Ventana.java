@@ -10,6 +10,7 @@ public class Ventana {
 
 	/**
 	 * Launch the application.
+	 * la aplicacion se hace aca
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
