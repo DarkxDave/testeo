@@ -2,6 +2,8 @@ package hospital;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import enfermera.Enfermera;
 import turno.Turno;
 
@@ -15,7 +17,55 @@ public class Hospital {
         turnos = new ArrayList<>();
         inicializarDatosFijos();
     }
+    
+ // Método para insertar manualmente una enfermera
+    public void insertarEnfermeraManual() {
+        Scanner sc = new Scanner(System.in);
 
+        System.out.println("Inserción manual de Enfermera:");
+        System.out.print("ID: ");
+        int id = sc.nextInt();
+        sc.nextLine(); // Consumir la nueva línea
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Estado (Disponible/Descanso): ");
+        String estado = sc.nextLine();
+        System.out.print("Especialidad: ");
+        String especialidad = sc.nextLine();
+
+        Enfermera nuevaEnfermera = new Enfermera(id, nombre, estado, especialidad);
+        enfermeras.add(nuevaEnfermera);
+        System.out.println("Enfermera agregada correctamente.");
+    }
+
+ // Método para insertar manualmente un turno
+    public void insertarTurnoManual() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Inserción manual de Turno:");
+        System.out.print("ID del turno: ");
+        int idTurno = sc.nextInt();
+        sc.nextLine(); // Consumir la nueva línea
+        System.out.print("Hora de inicio (HH:mm): ");
+        String horaInicio = sc.nextLine();
+        System.out.print("Hora de fin (HH:mm): ");
+        String horaFin = sc.nextLine();
+        System.out.print("Tipo de turno (Mañana/Tarde/Noche): ");
+        String tipoTurno = sc.nextLine();
+        
+        System.out.print("ID de la enfermera asignada: ");
+        int idEnfermera = sc.nextInt();
+
+        Enfermera enfermeraAsignada = buscarEnfermeraPorId(idEnfermera);
+        if (enfermeraAsignada == null) {
+            System.out.println("Enfermera no encontrada. Inserte primero la enfermera.");
+        } else {
+            Turno nuevoTurno = new Turno(idTurno, horaInicio, horaFin, tipoTurno, enfermeraAsignada);
+            turnos.add(nuevoTurno);
+            System.out.println("Turno agregado correctamente.");
+        }
+    }
+    
     // Método para inicializar los datos fijos
     private void inicializarDatosFijos() {
         // Agregar 3 enfermeras

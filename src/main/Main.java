@@ -1,26 +1,49 @@
 package main;
 
-import enfermera.Enfermera;
 import hospital.Hospital;
-import turno.Turno;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Crear una instancia de Hospital
         Hospital hospital = new Hospital();
+        Scanner sc = new Scanner(System.in);
+        int opcion;
 
-        // Listar las enfermeras
-        System.out.println("Enfermeras del hospital:");
-        for (Enfermera e : hospital.listarEnfermeras()) {
-            System.out.println(e.getNombre() + " - " + e.getEspecialidad() + " - " + e.getEstado());
-        }
+        do {
+            System.out.println("\nMenú del Sistema Hospitalario:");
+            System.out.println("1. Insertar enfermera manualmente");
+            System.out.println("2. Insertar turno manualmente");
+            System.out.println("3. Listar enfermeras");
+            System.out.println("4. Listar turnos");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = sc.nextInt();
 
-        // Listar los turnos
-        System.out.println("\nTurnos del hospital:");
-        for (Turno t : hospital.listarTurnos()) {
-            System.out.println(t.getTipoTurno() + " - " + t.getHoraInicio() + " a " + t.getHoraFin() + 
-                               " - Enfermera: " + t.getEnfermeraAsignada().getNombre());
-        }
+            switch (opcion) {
+                case 1:
+                    hospital.insertarEnfermeraManual();
+                    break;
+                case 2:
+                    hospital.insertarTurnoManual();
+                    break;
+                case 3:
+                    System.out.println("\nLista de Enfermeras:");
+                    hospital.listarEnfermeras().forEach(e -> System.out.println(e.getNombre()));
+                    break;
+                case 4:
+                    System.out.println("\nLista de Turnos:");
+                    hospital.listarTurnos().forEach(t -> 
+                        System.out.println("Turno " + t.getTipoTurno() + " (" + t.getHoraInicio() + " - " + t.getHoraFin() + 
+                                           ") - Enfermera: " + t.getEnfermeraAsignada().getNombre()));
+                    break;
+                case 0:
+                    System.out.println("Saliendo del sistema...");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        } while (opcion != 0);
+
+        sc.close();
     }
 }
-
