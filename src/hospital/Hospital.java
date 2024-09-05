@@ -1,8 +1,9 @@
 package hospital;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 import enfermera.Enfermera;
 import turno.Turno;
@@ -19,19 +20,24 @@ public class Hospital {
     }
     
  // Método para insertar manualmente una enfermera
-    public void insertarEnfermeraManual() {
-        Scanner sc = new Scanner(System.in);
-
+    public void insertarEnfermeraManual()throws IOException{
+        BufferedReader lector = new BufferedReader(new InputStreamReader (System.in));
+        int id;
+        String nombre, estado, especialidad, ingresado;
+        
         System.out.println("Inserción manual de Enfermera:");
         System.out.print("ID: ");
-        int id = sc.nextInt();
-        sc.nextLine(); // Consumir la nueva línea
+        ingresado = lector.readLine();
+        id = Integer.parseInt(ingresado);
         System.out.print("Nombre: ");
-        String nombre = sc.nextLine();
+        ingresado = lector.readLine();
+        nombre = ingresado;
         System.out.print("Estado (Disponible/Descanso): ");
-        String estado = sc.nextLine();
+        ingresado = lector.readLine();
+        estado = ingresado;
         System.out.print("Especialidad: ");
-        String especialidad = sc.nextLine();
+        ingresado = lector.readLine();
+        especialidad = ingresado;
 
         Enfermera nuevaEnfermera = new Enfermera(id, nombre, estado, especialidad);
         enfermeras.add(nuevaEnfermera);
@@ -39,28 +45,32 @@ public class Hospital {
     }
 
  // Método para insertar manualmente un turno
-    public void insertarTurnoManual() {
-        Scanner sc = new Scanner(System.in);
-
+    public void insertarTurnoManual()throws IOException {
+    	BufferedReader lector = new BufferedReader(new InputStreamReader (System.in));
+    	String ingresado, horaInicio, horaFin, tipoTurno;
+    	int id, idEnfermera;
         System.out.println("Inserción manual de Turno:");
         System.out.print("ID del turno: ");
-        int idTurno = sc.nextInt();
-        sc.nextLine(); // Consumir la nueva línea
+        ingresado = lector.readLine();
+        id = Integer.parseInt(ingresado);
         System.out.print("Hora de inicio (HH:mm): ");
-        String horaInicio = sc.nextLine();
+        ingresado = lector.readLine();
+        horaInicio = ingresado;
         System.out.print("Hora de fin (HH:mm): ");
-        String horaFin = sc.nextLine();
+        ingresado = lector.readLine();
+        horaFin = ingresado;
         System.out.print("Tipo de turno (Mañana/Tarde/Noche): ");
-        String tipoTurno = sc.nextLine();
-        
+        ingresado = lector.readLine();
+        tipoTurno = ingresado;
         System.out.print("ID de la enfermera asignada: ");
-        int idEnfermera = sc.nextInt();
+        ingresado = lector.readLine();
+        idEnfermera = Integer.parseInt(ingresado);
 
         Enfermera enfermeraAsignada = buscarEnfermeraPorId(idEnfermera);
         if (enfermeraAsignada == null) {
             System.out.println("Enfermera no encontrada. Inserte primero la enfermera.");
         } else {
-            Turno nuevoTurno = new Turno(idTurno, horaInicio, horaFin, tipoTurno, enfermeraAsignada);
+            Turno nuevoTurno = new Turno(id, horaInicio, horaFin, tipoTurno, enfermeraAsignada);
             turnos.add(nuevoTurno);
             System.out.println("Turno agregado correctamente.");
         }

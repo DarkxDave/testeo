@@ -1,12 +1,14 @@
 package main;
 
 import hospital.Hospital;
-import java.util.Scanner;
+
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         Hospital hospital = new Hospital();
-        Scanner sc = new Scanner(System.in);
+        BufferedReader lector = new BufferedReader(new InputStreamReader (System.in));
+        String ingresado;
         int opcion;
 
         do {
@@ -17,7 +19,8 @@ public class Main {
             System.out.println("4. Listar turnos");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
-            opcion = sc.nextInt();
+            ingresado = lector.readLine();
+            opcion = Integer.parseInt(ingresado);
 
             switch (opcion) {
                 case 1:
@@ -43,7 +46,5 @@ public class Main {
                     System.out.println("Opción no válida. Intente de nuevo.");
             }
         } while (opcion != 0);
-
-        sc.close();
     }
 }
