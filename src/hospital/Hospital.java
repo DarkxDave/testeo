@@ -1,62 +1,63 @@
 package hospital;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
-
+import java.util.Map;
 import enfermera.Enfermera;
 import turno.Turno;
 
 public class Hospital {
-    private List<Enfermera> enfermeras;
+    private Map<Integer, Enfermera> mapaEnfermeras;
     private List<Turno> turnos;
 
     // Constructor
     public Hospital() {
-        enfermeras = new ArrayList<>();
+        mapaEnfermeras = new HashMap<>();
         turnos = new ArrayList<>();
         inicializarDatosFijos();
     }
-    
- // Método para insertar manualmente una enfermera
-    public void insertarEnfermeraManual() {
-        Scanner sc = new Scanner(System.in);
+
+    // Método para insertar manualmente una enfermera
+    public void insertarEnfermeraManual() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Inserción manual de Enfermera:");
         System.out.print("ID: ");
-        int id = sc.nextInt();
-        sc.nextLine(); // Consumir la nueva línea
+        int id = Integer.parseInt(reader.readLine());
         System.out.print("Nombre: ");
-        String nombre = sc.nextLine();
+        String nombre = reader.readLine();
         System.out.print("Estado (Disponible/Descanso): ");
-        String estado = sc.nextLine();
+        String estado = reader.readLine();
         System.out.print("Especialidad: ");
-        String especialidad = sc.nextLine();
+        String especialidad = reader.readLine();
 
         Enfermera nuevaEnfermera = new Enfermera(id, nombre, estado, especialidad);
-        enfermeras.add(nuevaEnfermera);
+        mapaEnfermeras.put(id, nuevaEnfermera);
         System.out.println("Enfermera agregada correctamente.");
     }
 
- // Método para insertar manualmente un turno
-    public void insertarTurnoManual() {
-        Scanner sc = new Scanner(System.in);
+    // Método para insertar manualmente un turno
+    public void insertarTurnoManual() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Inserción manual de Turno:");
         System.out.print("ID del turno: ");
-        int idTurno = sc.nextInt();
-        sc.nextLine(); // Consumir la nueva línea
+        int idTurno = Integer.parseInt(reader.readLine());
         System.out.print("Hora de inicio (HH:mm): ");
-        String horaInicio = sc.nextLine();
+        String horaInicio = reader.readLine();
         System.out.print("Hora de fin (HH:mm): ");
-        String horaFin = sc.nextLine();
+        String horaFin = reader.readLine();
         System.out.print("Tipo de turno (Mañana/Tarde/Noche): ");
-        String tipoTurno = sc.nextLine();
-        
-        System.out.print("ID de la enfermera asignada: ");
-        int idEnfermera = sc.nextInt();
+        String tipoTurno = reader.readLine();
 
-        Enfermera enfermeraAsignada = buscarEnfermeraPorId(idEnfermera);
+        System.out.print("ID de la enfermera asignada: ");
+        int idEnfermera = Integer.parseInt(reader.readLine());
+
+        Enfermera enfermeraAsignada = mapaEnfermeras.get(idEnfermera);
         if (enfermeraAsignada == null) {
             System.out.println("Enfermera no encontrada. Inserte primero la enfermera.");
         } else {
@@ -65,7 +66,7 @@ public class Hospital {
             System.out.println("Turno agregado correctamente.");
         }
     }
-    
+
     // Método para inicializar los datos fijos
     private void inicializarDatosFijos() {
         // Agregar 3 enfermeras
@@ -73,9 +74,9 @@ public class Hospital {
         Enfermera enfermera2 = new Enfermera(2, "Ana Pérez", "Disponible", "Pediatría");
         Enfermera enfermera3 = new Enfermera(3, "María García", "Descanso", "Traumatología");
 
-        enfermeras.add(enfermera1);
-        enfermeras.add(enfermera2);
-        enfermeras.add(enfermera3);
+        mapaEnfermeras.put(enfermera1.getId(), enfermera1);
+        mapaEnfermeras.put(enfermera2.getId(), enfermera2);
+        mapaEnfermeras.put(enfermera3.getId(), enfermera3);
 
         // Agregar 3 turnos
         Turno turno1 = new Turno(1, "08:00", "16:00", "Mañana", enfermera1);
@@ -94,11 +95,11 @@ public class Hospital {
 
     // Gestionar Enfermeras
     public void agregarEnfermera(Enfermera enfermera) {
-        enfermeras.add(enfermera);
+        mapaEnfermeras.put(enfermera.getId(), enfermera);
     }
 
     public List<Enfermera> listarEnfermeras() {
-        return enfermeras;
+        return new ArrayList<>(mapaEnfermeras.values());
     }
 
     // Gestionar Turnos
@@ -113,22 +114,12 @@ public class Hospital {
     // Asignar enfermera a un turno
     public boolean asignarEnfermeraATurno(int idTurno, int idEnfermera) {
         Turno turno = buscarTurnoPorId(idTurno);
-        Enfermera enfermera = buscarEnfermeraPorId(idEnfermera);
+        Enfermera enfermera = mapaEnfermeras.get(idEnfermera);
         if (turno != null && enfermera != null) {
             turno.setEnfermeraAsignada(enfermera);
             return true;
         }
         return false;
-    }
-
-    // Buscar enfermera por ID
-    private Enfermera buscarEnfermeraPorId(int idEnfermera) {
-        for (Enfermera enfermera : enfermeras) {
-            if (enfermera.getId() == idEnfermera) {
-                return enfermera;
-            }
-        }
-        return null;
     }
 
     // Buscar turno por ID

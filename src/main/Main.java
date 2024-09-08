@@ -1,12 +1,16 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import hospital.Hospital;
-import java.util.Scanner;
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Hospital hospital = new Hospital();
-        Scanner sc = new Scanner(System.in);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int opcion;
 
         do {
@@ -17,7 +21,7 @@ public class Main {
             System.out.println("4. Listar turnos");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
-            opcion = sc.nextInt();
+            opcion = Integer.parseInt(reader.readLine());
 
             switch (opcion) {
                 case 1:
@@ -43,7 +47,5 @@ public class Main {
                     System.out.println("Opción no válida. Intente de nuevo.");
             }
         } while (opcion != 0);
-
-        sc.close();
     }
 }
