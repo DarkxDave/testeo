@@ -14,14 +14,14 @@ public class Hospital {
     private Map<Integer, Enfermera> mapaEnfermeras;
     private List<Turno> turnos;
 
-    // Constructor
+    // constructor
     public Hospital() {
         mapaEnfermeras = new HashMap<>();
         turnos = new ArrayList<>();
         inicializarDatosFijos();
     }
 
-    // Método para insertar manualmente una enfermera
+    // metodo para insertar manualmente una enfermera
     public void insertarEnfermeraManual() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -40,7 +40,7 @@ public class Hospital {
         System.out.println("Enfermera agregada correctamente.");
     }
 
-    // Método para insertar manualmente un turno
+    // metodo para insertar manualmente un turno
     public void insertarTurnoManual() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -67,9 +67,9 @@ public class Hospital {
         }
     }
 
-    // Método para inicializar los datos fijos
+    // metodo para inicializar los datos fijos
     private void inicializarDatosFijos() {
-        // Agregar 3 enfermeras
+        // agregar 3 enfermeras
         Enfermera enfermera1 = new Enfermera(1, "Laura Martínez", "Disponible", "Urgencias");
         Enfermera enfermera2 = new Enfermera(2, "Ana Pérez", "Disponible", "Pediatría");
         Enfermera enfermera3 = new Enfermera(3, "María García", "Descanso", "Traumatología");
@@ -78,7 +78,7 @@ public class Hospital {
         mapaEnfermeras.put(enfermera2.getId(), enfermera2);
         mapaEnfermeras.put(enfermera3.getId(), enfermera3);
 
-        // Agregar 3 turnos
+        // agregar 3 turnos
         Turno turno1 = new Turno(1, "08:00", "16:00", "Mañana", enfermera1);
         Turno turno2 = new Turno(2, "16:00", "00:00", "Tarde", enfermera2);
         Turno turno3 = new Turno(3, "00:00", "08:00", "Noche", enfermera3);
@@ -87,13 +87,13 @@ public class Hospital {
         turnos.add(turno2);
         turnos.add(turno3);
 
-        // Asignar turnos a las enfermeras
+        // asignar turnos a las enfermeras
         enfermera1.asignarTurno(turno1);
         enfermera2.asignarTurno(turno2);
         enfermera3.asignarTurno(turno3);
     }
 
-    // Gestionar Enfermeras
+    // gestionar enfermeras
     public void agregarEnfermera(Enfermera enfermera) {
         mapaEnfermeras.put(enfermera.getId(), enfermera);
     }
@@ -102,7 +102,7 @@ public class Hospital {
         return new ArrayList<>(mapaEnfermeras.values());
     }
 
-    // Gestionar Turnos
+    // gestionar turnos
     public void agregarTurno(Turno turno) {
         turnos.add(turno);
     }
@@ -111,7 +111,7 @@ public class Hospital {
         return turnos;
     }
 
-    // Asignar enfermera a un turno
+    // asignar enfermera a un turno
     public boolean asignarEnfermeraATurno(int idTurno, int idEnfermera) {
         Turno turno = buscarTurnoPorId(idTurno);
         Enfermera enfermera = mapaEnfermeras.get(idEnfermera);
@@ -122,7 +122,7 @@ public class Hospital {
         return false;
     }
 
-    // Buscar turno por ID
+    // buscar turno por ID
     private Turno buscarTurnoPorId(int idTurno) {
         for (Turno turno : turnos) {
             if (turno.getId() == idTurno) {
