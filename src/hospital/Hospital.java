@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import enfermera.Enfermera;
-import turno.Turno;
 
 public class Hospital {
     private Map<Integer, Enfermera> mapaEnfermeras;

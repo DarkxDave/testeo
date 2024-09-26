@@ -1,8 +1,7 @@
-package enfermera;
+package hospital;
 
 import java.util.ArrayList;
 import java.util.List;
-import turno.Turno;
 
 public class Enfermera {
     private int id;
