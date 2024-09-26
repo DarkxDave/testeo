@@ -93,6 +93,22 @@ public class Hospital
     {
         return turnos;
     }
+    
+ // Método para filtrar enfermeras por tipo de turno
+    public List<Enfermera> filtrarEnfermerasPorTurno(String tipoTurno) {
+        List<Enfermera> enfermerasFiltradas = new ArrayList<>();
+        
+        for (Turno turno : turnos) {
+            if (turno.getTipoTurno().equalsIgnoreCase(tipoTurno)) {
+                Enfermera enfermera = turno.getEnfermeraAsignada();
+                if (!enfermerasFiltradas.contains(enfermera)) {
+                    enfermerasFiltradas.add(enfermera);
+                }
+            }
+        }
+        
+        return enfermerasFiltradas;
+    }
 
     // asignar enfermera a un turno
     public boolean asignarEnfermeraATurno(int idTurno, int idEnfermera) 
