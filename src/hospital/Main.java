@@ -1,10 +1,7 @@
-package main;
+package hospital;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
-import hospital.Hospital;
-
 import java.io.IOException;
 
 public class Main {

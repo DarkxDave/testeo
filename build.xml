@@ -1,0 +1,20 @@
+<project name="HospitalProject" default="setup-db" basedir=".">
+    
+    <!-- Propiedades -->
+    <property name="sql.file" value="database/crear_base_datos_enfermeras.sql" />
+    <property name="db.user" value="root" />
+    <property name="db.password" value="password" />
+    <property name="db.url" value="jdbc:mysql://localhost:3306" />
+    
+    <!-- Tarea para ejecutar el script SQL -->
+    <target name="setup-db">
+        <echo message="Instalando base de datos de enfermeras..." />
+        <sql driver="com.mysql.cj.jdbc.Driver" url="${db.url}" userid="${db.user}" password="${db.password}" src="${sql.file}" />
+    </target>
+    
+    <!-- Limpiar -->
+    <target name="clean">
+        <echo message="Limpiando el entorno de instalación..." />
+    </target>
+
+</project>

@@ -1,6 +1,4 @@
-package turno;
-
-import enfermera.Enfermera;
+package hospital;
 
 public class Turno {
     private int id;
